@@ -27,51 +27,33 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({
   children,
-  defaultTheme = 'light'
+  defaultTheme = 'dark'
 }: ThemeProviderProps) {
-  const [theme, setThemeState] = useState<Theme>(defaultTheme);
+  const [theme, setThemeState] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
 
   // Handle hydration mismatch
   useEffect(() => {
     setMounted(true);
 
-    // Check for saved theme preference or system preference
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    // Force dark theme only
+    setThemeState('dark');
 
-    const initialTheme = savedTheme || systemPreference;
-    setThemeState(initialTheme);
-
-    // Apply theme to document
-    document.documentElement.setAttribute('data-theme', initialTheme);
+    // Apply dark theme to document
+    document.documentElement.setAttribute('data-theme', 'dark');
   }, []);
 
   const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
+    // Force dark theme only - ignore attempts to change
+    setThemeState('dark');
+    localStorage.setItem('theme', 'dark');
+    document.documentElement.setAttribute('data-theme', 'dark');
   };
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
+    // Disable theme toggle - always stay dark
+    setTheme('dark');
   };
-
-  // Listen for system theme changes
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-    const handleChange = (event: MediaQueryListEvent) => {
-      const savedTheme = localStorage.getItem('theme');
-      if (!savedTheme) {
-        setTheme(event.matches ? 'dark' : 'light');
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
 
   // Prevent hydration mismatch by rendering a loading state
   if (!mounted) {

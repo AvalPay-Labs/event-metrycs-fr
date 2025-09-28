@@ -12,14 +12,14 @@ interface OrganizationCardProps {
 const getRoleBadgeColor = (role: string) => {
   switch (role) {
     case 'admin':
-      return 'bg-red-100 text-red-800 border-red-200';
+      return 'text-red-400 bg-red-900/20 border border-red-800';
     case 'ambassador':
-      return 'bg-blue-100 text-blue-800 border-blue-200';
+      return 'text-orange-400 bg-orange-900/20 border border-orange-800';
     case 'staff':
-      return 'bg-green-100 text-green-800 border-green-200';
+      return 'text-green-400 bg-green-900/20 border border-green-800';
     case 'user':
     default:
-      return 'bg-gray-100 text-gray-800 border-gray-200';
+      return 'text-gray-400 bg-gray-900/20 border border-gray-700';
   }
 };
 
@@ -51,8 +51,8 @@ export default function OrganizationCard({
 
   return (
     <div
-      className={`bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow ${
-        onClick ? 'cursor-pointer hover:border-gray-300' : ''
+      className={`bg-gray-800 rounded-lg border border-gray-700 p-6 hover:shadow-md transition-shadow ${
+        onClick ? 'cursor-pointer hover:border-gray-600' : ''
       }`}
       onClick={onClick}
     >
@@ -62,15 +62,15 @@ export default function OrganizationCard({
             {getOrgTypeIcon(organization.type)}
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+            <h3 className="font-semibold text-white flex items-center gap-2">
               {organization.name}
               {organization.isDefault && (
-                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                <span className="text-xs bg-orange-900/20 text-orange-400 px-2 py-1 rounded-full border border-orange-800">
                   Default
                 </span>
               )}
             </h3>
-            <p className="text-sm text-gray-500 capitalize">
+            <p className="text-sm text-gray-400 capitalize">
               {organization.type} Organization
             </p>
           </div>
@@ -83,11 +83,11 @@ export default function OrganizationCard({
         )}
       </div>
 
-      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+      <p className="text-sm text-gray-300 mb-4 line-clamp-2">
         {organization.description}
       </p>
 
-      <div className="flex items-center justify-between text-sm text-gray-500">
+      <div className="flex items-center justify-between text-sm text-gray-400">
         <div className="flex items-center space-x-4">
           <span className="flex items-center gap-1">
             👥 {organization.memberCount} members
@@ -98,33 +98,33 @@ export default function OrganizationCard({
         </div>
 
         {organization.role && 'status' in organization && (organization as { status?: string }).status === 'pending' && (
-          <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+          <span className="text-xs bg-yellow-900/20 text-yellow-400 px-2 py-1 rounded-full border border-yellow-800">
             Pending
           </span>
         )}
       </div>
 
       {permissions && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
-          <div className="text-xs text-gray-500 mb-2">Your permissions:</div>
+        <div className="mt-4 pt-4 border-t border-gray-700">
+          <div className="text-xs text-gray-400 mb-2">Your permissions:</div>
           <div className="flex flex-wrap gap-1">
             {permissions.canViewMetrics && (
-              <span className="text-xs bg-green-50 text-green-700 px-2 py-1 rounded">
+              <span className="text-xs bg-green-900/20 text-green-400 px-2 py-1 rounded border border-green-800">
                 📊 View Metrics
               </span>
             )}
             {permissions.canCreateEvents && (
-              <span className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded">
+              <span className="text-xs bg-orange-900/20 text-orange-400 px-2 py-1 rounded border border-orange-800">
                 ➕ Create Events
               </span>
             )}
             {permissions.canManageMembers && (
-              <span className="text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded">
+              <span className="text-xs bg-purple-900/20 text-purple-400 px-2 py-1 rounded border border-purple-800">
                 👤 Manage Members
               </span>
             )}
             {permissions.canViewReports && (
-              <span className="text-xs bg-orange-50 text-orange-700 px-2 py-1 rounded">
+              <span className="text-xs bg-orange-900/20 text-orange-400 px-2 py-1 rounded border border-orange-800">
                 📈 View Reports
               </span>
             )}
@@ -132,8 +132,8 @@ export default function OrganizationCard({
         </div>
       )}
 
-      <div className="mt-4 pt-3 border-t border-gray-100">
-        <div className="text-xs text-gray-400 flex items-center justify-between">
+      <div className="mt-4 pt-3 border-t border-gray-700">
+        <div className="text-xs text-gray-500 flex items-center justify-between">
           <span>🟢 DEMO DATA - EventMetrics Platform</span>
           <span>
             {organization.isPublic ? '🌐 Public' : '🔒 Private'}

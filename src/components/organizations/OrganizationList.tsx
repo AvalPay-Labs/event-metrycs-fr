@@ -102,12 +102,12 @@ export default function OrganizationList() {
         </div>
       )}
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div className="bg-orange-900/20 border border-orange-800 rounded-lg p-4">
         <div className="flex items-start space-x-3">
-          <span className="text-blue-500 text-lg">ℹ️</span>
+          <span className="text-orange-400 text-lg">ℹ️</span>
           <div>
-            <h4 className="font-medium text-blue-900">Demo Mode Active</h4>
-            <p className="text-sm text-blue-700 mt-1">
+            <h4 className="font-medium text-orange-400">Demo Mode Active</h4>
+            <p className="text-sm text-orange-300 mt-1">
               You&apos;re viewing simulated organization data. In the full platform,
               you&apos;ll see real organizations and be able to manage actual events and metrics.
             </p>

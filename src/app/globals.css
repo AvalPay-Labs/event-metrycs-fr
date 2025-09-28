@@ -1,23 +1,43 @@
 @import "tailwindcss";
 
 :root {
-  /* Light theme colors - Mac-inspired */
-  --background: #ffffff;
-  --background-secondary: #f8f9fa;
-  --foreground: #1d1d1f;
-  --foreground-secondary: #86868b;
-  --foreground-light: #6e6e73;
+  /* Light theme colors - Modern beige/cream palette */
+  --background: #fefcf8;
+  --background-secondary: #f5f2ed;
+  --foreground: #2c2c2c;
+  --foreground-secondary: #6b6b6b;
+  --foreground-light: #8a8a8a;
 
-  /* Mac-style accent colors */
-  --accent-blue: #007aff;
-  --accent-blue-hover: #0051d5;
-  --accent-gray: #f2f2f7;
-  --accent-border: #d2d2d7;
+  /* Primary accent colors - Vibrant orange */
+  --accent-primary: #ff6b35;
+  --accent-primary-hover: #e55a2b;
+  --accent-primary-light: #fff4f0;
+  
+  /* Secondary accent colors - Blues */
+  --accent-blue: #4a90e2;
+  --accent-blue-hover: #357abd;
+  --accent-blue-light: #e8f2ff;
+  
+  /* Neutral grays */
+  --accent-gray: #f0f0f0;
+  --accent-gray-light: #f8f8f8;
+  --accent-border: #e0e0e0;
 
-  /* Status colors - Mac system colors */
-  --success: #30d158;
-  --warning: #ff9f0a;
-  --error: #ff3b30;
+  /* Status colors - Modern palette */
+  --success: #4caf50;
+  --success-light: #e8f5e8;
+  --warning: #ff9800;
+  --warning-light: #fff3e0;
+  --error: #f44336;
+  --error-light: #ffebee;
+  
+  /* Additional accent colors */
+  --accent-green: #66bb6a;
+  --accent-green-light: #e8f5e8;
+  --accent-purple: #9c27b0;
+  --accent-purple-light: #f3e5f5;
+  --accent-yellow: #ffc107;
+  --accent-yellow-light: #fffde7;
 
   /* Mac-style shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -45,23 +65,43 @@
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors - Mac-inspired */
-  --background: #000000;
-  --background-secondary: #1c1c1e;
+  /* Dark theme colors - Modern dark palette */
+  --background: #1a1a1a;
+  --background-secondary: #2a2a2a;
   --foreground: #ffffff;
-  --foreground-secondary: #8e8e93;
-  --foreground-light: #aeaeb2;
+  --foreground-secondary: #b0b0b0;
+  --foreground-light: #d0d0d0;
 
-  /* Mac-style accent colors for dark mode */
-  --accent-blue: #0a84ff;
-  --accent-blue-hover: #409cff;
-  --accent-gray: #1c1c1e;
-  --accent-border: #38383a;
+  /* Primary accent colors - Vibrant orange for dark mode */
+  --accent-primary: #ff7a4d;
+  --accent-primary-hover: #ff8a5d;
+  --accent-primary-light: #2a1f1a;
+  
+  /* Secondary accent colors - Blues for dark mode */
+  --accent-blue: #5ba3f5;
+  --accent-blue-hover: #6bb3ff;
+  --accent-blue-light: #1a2332;
+  
+  /* Neutral grays for dark mode */
+  --accent-gray: #333333;
+  --accent-gray-light: #2a2a2a;
+  --accent-border: #404040;
 
-  /* Status colors - Mac dark system colors */
-  --success: #32d74b;
-  --warning: #ff9f0a;
-  --error: #ff453a;
+  /* Status colors - Dark mode palette */
+  --success: #66bb6a;
+  --success-light: #1a2e1a;
+  --warning: #ffb74d;
+  --warning-light: #2a1f0a;
+  --error: #f87171;
+  --error-light: #2a1a1a;
+  
+  /* Additional accent colors for dark mode */
+  --accent-green: #81c784;
+  --accent-green-light: #1a2e1a;
+  --accent-purple: #ba68c8;
+  --accent-purple-light: #2a1a2a;
+  --accent-yellow: #ffd54f;
+  --accent-yellow-light: #2a2a1a;
 
   /* Dark mode shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
@@ -78,13 +118,38 @@
   --color-foreground: var(--foreground);
   --color-foreground-secondary: var(--foreground-secondary);
   --color-foreground-light: var(--foreground-light);
+  
+  /* Primary accent colors */
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-hover: var(--accent-primary-hover);
+  --color-accent-primary-light: var(--accent-primary-light);
+  
+  /* Secondary accent colors */
   --color-accent-blue: var(--accent-blue);
   --color-accent-blue-hover: var(--accent-blue-hover);
+  --color-accent-blue-light: var(--accent-blue-light);
+  
+  /* Neutral colors */
   --color-accent-gray: var(--accent-gray);
+  --color-accent-gray-light: var(--accent-gray-light);
   --color-accent-border: var(--accent-border);
+  
+  /* Status colors */
   --color-success: var(--success);
+  --color-success-light: var(--success-light);
   --color-warning: var(--warning);
+  --color-warning-light: var(--warning-light);
   --color-error: var(--error);
+  --color-error-light: var(--error-light);
+  
+  /* Additional accent colors */
+  --color-accent-green: var(--accent-green);
+  --color-accent-green-light: var(--accent-green-light);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-purple-light: var(--accent-purple-light);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-yellow-light: var(--accent-yellow-light);
+  
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -161,13 +226,13 @@ p {
 }
 
 .btn-primary {
-  background: var(--accent-blue);
+  background: var(--accent-primary);
   color: white;
   box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
-  background: var(--accent-blue-hover);
+  background: var(--accent-primary-hover);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
@@ -185,7 +250,7 @@ p {
 }
 
 .btn-secondary:hover {
-  background: var(--accent-gray);
+  background: var(--accent-gray-light);
   border-color: var(--accent-blue);
 }
 
@@ -215,8 +280,8 @@ p {
 
 .input:focus {
   outline: none;
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.2);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2);
   background: var(--background);
 }
 
@@ -249,7 +314,7 @@ p {
   padding: var(--spacing-xl);
 }
 
-/* Mac-style sidebar */
+/* Modern sidebar */
 .sidebar {
   background: var(--background-secondary);
   backdrop-filter: var(--blur-light);
@@ -278,7 +343,7 @@ p {
 }
 
 .sidebar-item.active {
-  background: var(--accent-blue);
+  background: var(--accent-primary);
   color: white;
   box-shadow: var(--shadow-sm);
 }
@@ -398,10 +463,10 @@ p {
   animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Mac-style focus indicators */
+/* Modern focus indicators */
 .focus-ring:focus {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.2);
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2);
 }
 
 /* Mac-style badges */
@@ -431,8 +496,28 @@ p {
 }
 
 .badge-blue {
-  background: rgba(0, 122, 255, 0.15);
+  background: var(--accent-blue-light);
   color: var(--accent-blue);
+}
+
+.badge-primary {
+  background: var(--accent-primary-light);
+  color: var(--accent-primary);
+}
+
+.badge-green {
+  background: var(--accent-green-light);
+  color: var(--accent-green);
+}
+
+.badge-purple {
+  background: var(--accent-purple-light);
+  color: var(--accent-purple);
+}
+
+.badge-yellow {
+  background: var(--accent-yellow-light);
+  color: var(--accent-yellow);
 }
 
 /* Responsive design - Mac-style */

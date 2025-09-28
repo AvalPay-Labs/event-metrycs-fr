@@ -201,7 +201,7 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Members Section */}
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             Team Members ({members.length})
           </h2>
@@ -241,7 +241,7 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
         </div>
 
         {/* Events Section */}
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             Recent Events ({events.length})
           </h2>

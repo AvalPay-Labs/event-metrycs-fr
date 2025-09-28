@@ -48,15 +48,19 @@ export default function OrganizationDetailPage({ params }: OrganizationDetailPag
       >
         <div className="text-center py-12">
           <div className="text-4xl mb-4">❌</div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-lg font-medium text-white mb-2">
             Invalid Organization ID
           </h3>
-          <p className="text-gray-500 mb-4">
+          <p className="text-gray-400 mb-4">
             The organization ID provided is not valid.
           </p>
           <button
             onClick={() => router.push('/organizations')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+            className="btn btn-primary"
+            style={{
+              padding: '0.75rem 1.5rem',
+              fontSize: '0.875rem'
+            }}
           >
             Back to Organizations
           </button>
@@ -80,7 +84,7 @@ export default function OrganizationDetailPage({ params }: OrganizationDetailPag
         <div className="mb-6">
           <button
             onClick={() => router.push('/organizations')}
-            className="flex items-center text-blue-600 hover:text-blue-800 font-medium"
+            className="flex items-center text-orange-400 hover:text-orange-300 font-medium"
           >
             ← Back to Organizations
           </button>
