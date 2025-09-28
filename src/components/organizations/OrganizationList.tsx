@@ -22,12 +22,12 @@ export default function OrganizationList() {
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-900">My Organizations</h2>
-          <div className="text-sm text-gray-500">Loading...</div>
+          <h2 className="text-xl font-semibold text-white">My Organizations</h2>
+          <div className="text-sm text-gray-400">Loading...</div>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-100 rounded-lg h-48 animate-pulse" />
+            <div key={i} className="bg-gray-800 rounded-lg h-48 animate-pulse" />
           ))}
         </div>
       </div>
@@ -37,15 +37,15 @@ export default function OrganizationList() {
   if (error) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-900">My Organizations</h2>
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+        <h2 className="text-xl font-semibold text-white">My Organizations</h2>
+        <div className="bg-red-900/20 border border-red-800 rounded-lg p-4">
           <div className="flex items-center space-x-2">
-            <span className="text-red-500">⚠️</span>
-            <p className="text-red-700">{error}</p>
+            <span className="text-red-400">⚠️</span>
+            <p className="text-red-300">{error}</p>
           </div>
           <button
             onClick={() => user?.id && loadOrganizations(Number(user.id))}
-            className="mt-2 text-sm text-red-600 hover:text-red-800 underline"
+            className="mt-2 text-sm text-red-400 hover:text-red-300 underline"
           >
             Try again
           </button>
@@ -58,31 +58,31 @@ export default function OrganizationList() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">My Organizations</h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <h2 className="text-xl font-semibold text-white">My Organizations</h2>
+          <p className="text-sm text-gray-400 mt-1">
             Organizations you&apos;re a member of
           </p>
         </div>
         <button
           onClick={() => setShowJoinModal(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-gray-700"
         >
           Join Organization
         </button>
       </div>
 
       {organizations.length === 0 ? (
-        <div className="text-center py-12 bg-gray-50 rounded-lg">
+        <div className="text-center py-12 bg-gray-800 rounded-lg border border-gray-700">
           <div className="text-4xl mb-4">🏢</div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-lg font-medium text-white mb-2">
             No organizations yet
           </h3>
-          <p className="text-gray-500 mb-4">
+          <p className="text-gray-400 mb-4">
             You&apos;re not a member of any organizations. Join one to get started!
           </p>
           <button
             onClick={() => setShowJoinModal(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+            className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-medium transition-colors border border-gray-700"
           >
             Browse Organizations
           </button>

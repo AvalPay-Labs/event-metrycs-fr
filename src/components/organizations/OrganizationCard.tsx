@@ -51,8 +51,8 @@ export default function OrganizationCard({
 
   return (
     <div
-      className={`bg-gray-800 rounded-lg border border-gray-700 p-6 hover:shadow-md transition-shadow ${
-        onClick ? 'cursor-pointer hover:border-gray-600' : ''
+      className={`bg-gray-900 rounded-lg border border-gray-800 p-6 hover:shadow-md transition-shadow ${
+        onClick ? 'cursor-pointer hover:border-gray-700' : ''
       }`}
       onClick={onClick}
     >
@@ -105,7 +105,7 @@ export default function OrganizationCard({
       </div>
 
       {permissions && (
-        <div className="mt-4 pt-4 border-t border-gray-700">
+        <div className="mt-4 pt-4 border-t border-gray-800">
           <div className="text-xs text-gray-400 mb-2">Your permissions:</div>
           <div className="flex flex-wrap gap-1">
             {permissions.canViewMetrics && (
@@ -132,7 +132,7 @@ export default function OrganizationCard({
         </div>
       )}
 
-      <div className="mt-4 pt-3 border-t border-gray-700">
+      <div className="mt-4 pt-3 border-t border-gray-800">
         <div className="text-xs text-gray-500 flex items-center justify-between">
           <span>🟢 DEMO DATA - EventMetrics Platform</span>
           <span>
