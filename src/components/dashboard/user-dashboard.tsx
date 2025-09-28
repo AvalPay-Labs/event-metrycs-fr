@@ -13,16 +13,16 @@ import Card from '@/components/ui/Card';
 import Timeline from '@/components/ui/Timeline';
 import Button from '@/components/ui/Button';
 import { WalletButton, WalletStatus } from '@/components/wallet';
+import { OrganizationList } from '@/components/organizations';
 
 export default function UserDashboard() {
   const { user, logout } = useAuthStore();
   const { initializeWallet, isConnected } = useWalletStore();
-  const [userOrganizations, setUserOrganizations] = useState<UserOrganization[]>([]);
+  const [userOrganizations] = useState<UserOrganization[]>([]);
 
   useEffect(() => {
     if (user) {
-      const orgs = MockAuthService.getUserOrgMemberships(user.id);
-      setUserOrganizations(orgs);
+      MockAuthService.getUserOrgMemberships(user.id);
     }
   }, [user]);
 
@@ -32,9 +32,9 @@ export default function UserDashboard() {
 
   if (!user) return null;
 
-  const handleLogout = () => {
-    logout();
-  };
+  // const handleLogout = () => {
+  //   logout();
+  // };
 
   const handleShare = () => {
     // Mock share functionality
@@ -247,119 +247,73 @@ export default function UserDashboard() {
           </Card>
         )}
 
-        {/* User Profile and Organization Cards */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '1.5rem',
-          marginTop: '1.5rem'
-        }}>
-          <Card title="Perfil de Usuario">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <div>
-                <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
-                  Nombre Completo
-                </dt>
-                <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)' }}>
-                  {user.firstName} {user.lastName}
-                </dd>
-              </div>
-              <div>
-                <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
-                  Email
-                </dt>
-                <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)' }}>
-                  {user.email}
-                </dd>
-              </div>
-              <div>
-                <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
-                  Proveedor de Autenticación
-                </dt>
-                <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)', textTransform: 'capitalize' }}>
-                  {user.provider}
-                </dd>
-              </div>
-              <div>
-                <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
-                  Email Verificado
-                </dt>
-                <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)' }}>
-                  <span style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    padding: '0.125rem 0.5rem',
-                    borderRadius: '9999px',
-                    fontSize: '0.75rem',
-                    fontWeight: '500',
-                    background: user.emailVerified ? '#dcfce7' : '#fef2f2',
-                    color: user.emailVerified ? '#166534' : '#dc2626'
-                  }}>
-                    {user.emailVerified ? 'Verificado' : 'Pendiente'}
-                  </span>
-                </dd>
-              </div>
-              <div>
-                <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
-                  Fecha de Registro
-                </dt>
-                <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)' }}>
-                  {new Date(user.createdAt).toLocaleDateString('es-ES', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })}
-                </dd>
-              </div>
-            </div>
-          </Card>
-
-          <Card title="Membresías de Organización">
-            {userOrganizations.length > 0 ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                {userOrganizations.map((org) => (
-                  <div key={org.id} style={{
-                    border: '1px solid var(--accent-border)',
-                    borderRadius: 'var(--radius-md)',
-                    padding: '0.75rem'
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                      <div>
-                        <h4 style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--foreground)' }}>
-                          Team 1
-                        </h4>
-                        <p style={{ fontSize: '0.75rem', color: 'var(--foreground-secondary)' }}>
-                          Organización por defecto
-                        </p>
-                      </div>
-                      <span style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        padding: '0.125rem 0.5rem',
-                        borderRadius: '9999px',
-                        fontSize: '0.75rem',
-                        fontWeight: '500',
-                        background: '#dbeafe',
-                        color: '#1e40af'
-                      }}>
-                        {org.role === 'user' ? 'Usuario' : org.role}
-                      </span>
-                    </div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--foreground-secondary)' }}>
-                      Miembro desde: {new Date(org.joinedAt).toLocaleDateString('es-ES')}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p style={{ fontSize: '0.875rem', color: 'var(--foreground-light)' }}>
-                No hay membresías de organización.
-              </p>
-            )}
-          </Card>
+        {/* Organizations Section */}
+        <div style={{ marginTop: '2rem' }}>
+          <OrganizationList />
         </div>
+
+        {/* User Profile Card */}
+        <Card title="Perfil de Usuario" style={{ marginTop: '2rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <div>
+              <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
+                Nombre Completo
+              </dt>
+              <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)' }}>
+                {user.firstName} {user.lastName}
+              </dd>
+            </div>
+            <div>
+              <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
+                Email
+              </dt>
+              <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)' }}>
+                {user.email}
+              </dd>
+            </div>
+            <div>
+              <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
+                Proveedor de Autenticación
+              </dt>
+              <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)', textTransform: 'capitalize' }}>
+                {user.provider}
+              </dd>
+            </div>
+            <div>
+              <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
+                Email Verificado
+              </dt>
+              <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)' }}>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '0.125rem 0.5rem',
+                  borderRadius: '9999px',
+                  fontSize: '0.75rem',
+                  fontWeight: '500',
+                  background: user.emailVerified ? '#dcfce7' : '#fef2f2',
+                  color: user.emailVerified ? '#166534' : '#dc2626'
+                }}>
+                  {user.emailVerified ? 'Verificado' : 'Pendiente'}
+                </span>
+              </dd>
+            </div>
+            <div>
+              <dt style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--foreground-secondary)', marginBottom: '0.25rem' }}>
+                Fecha de Registro
+              </dt>
+              <dd style={{ fontSize: '0.875rem', color: 'var(--foreground)' }}>
+                {new Date(user.createdAt).toLocaleDateString('es-ES', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
+              </dd>
+            </div>
+          </div>
+        </Card>
 
         {/* Demo Notice */}
         <div style={{
