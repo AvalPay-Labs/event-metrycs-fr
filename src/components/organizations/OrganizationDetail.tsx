@@ -29,7 +29,7 @@ const formatEventDate = (dateString: string) => {
 const getEventStatusColor = (status: string) => {
   switch (status) {
     case 'upcoming':
-      return 'bg-blue-100 text-blue-800 border-blue-200';
+      return 'bg-orange-100 text-orange-800 border-orange-200';
     case 'ongoing':
       return 'bg-green-100 text-green-800 border-green-200';
     case 'completed':
@@ -66,10 +66,10 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <div className="bg-gray-100 h-32 rounded-lg animate-pulse" />
+        <div className="bg-gray-800 h-32 rounded-lg animate-pulse" />
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-gray-100 h-64 rounded-lg animate-pulse" />
-          <div className="bg-gray-100 h-64 rounded-lg animate-pulse" />
+          <div className="bg-gray-800 h-64 rounded-lg animate-pulse" />
+          <div className="bg-gray-800 h-64 rounded-lg animate-pulse" />
         </div>
       </div>
     );
@@ -77,12 +77,12 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+      <div className="bg-red-900/20 border border-red-800 rounded-lg p-6">
         <div className="flex items-center space-x-2">
           <span className="text-red-500 text-xl">⚠️</span>
           <div>
-            <h3 className="font-medium text-red-900">Error loading organization</h3>
-            <p className="text-red-700 mt-1">{error}</p>
+            <h3 className="font-medium text-red-300">Error loading organization</h3>
+            <p className="text-red-400 mt-1">{error}</p>
           </div>
         </div>
       </div>
@@ -93,10 +93,10 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">🏢</div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">
+        <h3 className="text-lg font-medium text-white mb-2">
           Organization not found
         </h3>
-        <p className="text-gray-500">
+        <p className="text-gray-400">
           The organization you&apos;re looking for doesn&apos;t exist or you don&apos;t have access to it.
         </p>
       </div>
@@ -109,7 +109,7 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
   return (
     <div className="space-y-6">
       {/* Organization Header */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
+      <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-4">
             <div className="text-4xl">
@@ -119,15 +119,15 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                organization.type === 'default' ? '🏠' : '🏢'}
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+              <h1 className="text-2xl font-bold text-white flex items-center gap-3">
                 {organization.name}
                 {organization.isDefault && (
-                  <span className="text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+                  <span className="text-sm bg-orange-100 text-orange-800 px-3 py-1 rounded-full">
                     Default Organization
                   </span>
                 )}
               </h1>
-              <p className="text-gray-500 capitalize mt-1">
+              <p className="text-gray-400 capitalize mt-1">
                 {organization.type} Organization
               </p>
             </div>
@@ -135,44 +135,44 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
 
           {userRole && (
             <div className="text-right">
-              <span className="text-sm text-gray-500">Your role</span>
-              <div className="text-lg font-medium text-blue-600 capitalize">
+              <span className="text-sm text-gray-400">Your role</span>
+              <div className="text-lg font-medium text-orange-600 capitalize">
                 {userRole}
               </div>
             </div>
           )}
         </div>
 
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-300 mb-6">
           {organization.description}
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="text-center p-4 bg-gray-50 rounded-lg">
-            <div className="text-2xl font-bold text-gray-900">{organization.memberCount}</div>
-            <div className="text-sm text-gray-500">Members</div>
+          <div className="text-center p-4 bg-gray-700 rounded-lg">
+            <div className="text-2xl font-bold text-white">{organization.memberCount}</div>
+            <div className="text-sm text-gray-400">Members</div>
           </div>
-          <div className="text-center p-4 bg-gray-50 rounded-lg">
-            <div className="text-2xl font-bold text-gray-900">{organization.eventsCount}</div>
-            <div className="text-sm text-gray-500">Events</div>
+          <div className="text-center p-4 bg-gray-700 rounded-lg">
+            <div className="text-2xl font-bold text-white">{organization.eventsCount}</div>
+            <div className="text-sm text-gray-400">Events</div>
           </div>
-          <div className="text-center p-4 bg-gray-50 rounded-lg">
-            <div className="text-2xl font-bold text-gray-900">
+          <div className="text-center p-4 bg-gray-700 rounded-lg">
+            <div className="text-2xl font-bold text-white">
               {organization.isPublic ? 'Public' : 'Private'}
             </div>
-            <div className="text-sm text-gray-500">Visibility</div>
+            <div className="text-sm text-gray-400">Visibility</div>
           </div>
-          <div className="text-center p-4 bg-gray-50 rounded-lg">
-            <div className="text-2xl font-bold text-gray-900">
+          <div className="text-center p-4 bg-gray-700 rounded-lg">
+            <div className="text-2xl font-bold text-white">
               {organization.status === 'active' ? '🟢' : '🔴'}
             </div>
-            <div className="text-sm text-gray-500">Status</div>
+            <div className="text-sm text-gray-400">Status</div>
           </div>
         </div>
 
         {permissions && (
           <div className="border-t border-gray-200 pt-4">
-            <h4 className="text-sm font-medium text-gray-900 mb-3">Your Permissions</h4>
+            <h4 className="text-sm font-medium text-white mb-3">Your Permissions</h4>
             <div className="flex flex-wrap gap-2">
               {permissions.canViewMetrics && (
                 <span className="text-xs bg-green-50 text-green-700 px-3 py-1 rounded-full border border-green-200">
@@ -180,7 +180,7 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                 </span>
               )}
               {permissions.canCreateEvents && (
-                <span className="text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">
+                <span className="text-xs bg-orange-50 text-orange-700 px-3 py-1 rounded-full border border-orange-200">
                   ➕ Create Events
                 </span>
               )}
@@ -202,7 +202,7 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Members Section */}
         <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-white mb-4">
             Team Members ({members.length})
           </h2>
 
@@ -218,20 +218,20 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                     height={40}
                   />
                   <div>
-                    <div className="font-medium text-gray-900">{member.name}</div>
-                    <div className="text-sm text-gray-500">{member.email}</div>
+                    <div className="font-medium text-white">{member.name}</div>
+                    <div className="text-sm text-gray-400">{member.email}</div>
                   </div>
                 </div>
                 <div className="text-right">
                   <span className={`text-xs font-medium px-2 py-1 rounded-full ${
                     member.role === 'admin' ? 'bg-red-100 text-red-800' :
-                    member.role === 'ambassador' ? 'bg-blue-100 text-blue-800' :
+                    member.role === 'ambassador' ? 'bg-orange-100 text-orange-800' :
                     member.role === 'staff' ? 'bg-green-100 text-green-800' :
                     'bg-gray-100 text-gray-800'
                   }`}>
                     {member.role.charAt(0).toUpperCase() + member.role.slice(1)}
                   </span>
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs text-gray-400 mt-1">
                     {new Date(member.joinedAt).toLocaleDateString()}
                   </div>
                 </div>
@@ -242,7 +242,7 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
 
         {/* Events Section */}
         <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-white mb-4">
             Recent Events ({events.length})
           </h2>
 
@@ -253,8 +253,8 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                   <div className="flex items-center space-x-2">
                     <span className="text-lg">{getEventTypeIcon(event.type)}</span>
                     <div>
-                      <h4 className="font-medium text-gray-900">{event.title}</h4>
-                      <p className="text-sm text-gray-500 capitalize">{event.type}</p>
+                      <h4 className="font-medium text-white">{event.title}</h4>
+                      <p className="text-sm text-gray-400 capitalize">{event.type}</p>
                     </div>
                   </div>
                   <span className={`text-xs font-medium px-2 py-1 rounded-full border ${getEventStatusColor(event.status)}`}>
@@ -262,11 +262,11 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                   </span>
                 </div>
 
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                <p className="text-sm text-gray-300 mb-3 line-clamp-2">
                   {event.description}
                 </p>
 
-                <div className="flex items-center justify-between text-sm text-gray-500">
+                <div className="flex items-center justify-between text-sm text-gray-400">
                   <span>👥 {event.attendees} attendees</span>
                   <span>{formatEventDate(event.date)}</span>
                 </div>
@@ -277,12 +277,12 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
       </div>
 
       {/* Demo Notice */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
         <div className="flex items-start space-x-3">
-          <span className="text-blue-500 text-lg">💡</span>
+          <span className="text-orange-500 text-lg">💡</span>
           <div>
-            <h4 className="font-medium text-blue-900">Demo Organization Data</h4>
-            <p className="text-sm text-blue-700 mt-1">
+            <h4 className="font-medium text-orange-900">Demo Organization Data</h4>
+            <p className="text-sm text-orange-700 mt-1">
               This organization and its data are simulated for demonstration purposes.
               In the full platform, you&apos;ll see real team members, actual events, and live metrics.
             </p>

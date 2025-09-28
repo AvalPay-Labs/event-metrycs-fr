@@ -65,7 +65,7 @@ export default function OrganizationList() {
         </div>
         <button
           onClick={() => setShowJoinModal(true)}
-          className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-gray-700"
+          className="btn btn-primary text-sm"
         >
           Join Organization
         </button>
@@ -82,7 +82,7 @@ export default function OrganizationList() {
           </p>
           <button
             onClick={() => setShowJoinModal(true)}
-            className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-medium transition-colors border border-gray-700"
+            className="btn btn-primary"
           >
             Browse Organizations
           </button>
