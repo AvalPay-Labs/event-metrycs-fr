@@ -5,15 +5,18 @@
 
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/store/auth-store';
+import { useWalletStore } from '@/store/wallet-store';
 import { MockAuthService } from '@/lib/mock-auth';
 import { UserOrganization } from '@/lib/mock-data';
 import MainLayout from '@/components/layout/MainLayout';
 import Card from '@/components/ui/Card';
 import Timeline from '@/components/ui/Timeline';
 import Button from '@/components/ui/Button';
+import { WalletButton, WalletStatus } from '@/components/wallet';
 
 export default function UserDashboard() {
   const { user, logout } = useAuthStore();
+  const { initializeWallet, isConnected } = useWalletStore();
   const [userOrganizations, setUserOrganizations] = useState<UserOrganization[]>([]);
 
   useEffect(() => {
@@ -22,6 +25,10 @@ export default function UserDashboard() {
       setUserOrganizations(orgs);
     }
   }, [user]);
+
+  useEffect(() => {
+    initializeWallet();
+  }, [initializeWallet]);
 
   if (!user) return null;
 
@@ -158,9 +165,7 @@ export default function UserDashboard() {
               }}>
                 Conecta tu wallet (Core, MetaMask, o Avalanche Card) para participar en eventos blockchain.
               </p>
-              <Button variant="ghost" size="sm">
-                Conectar Wallet (Mock) →
-              </Button>
+              <WalletButton size="sm" />
             </div>
 
             <div style={{
@@ -228,17 +233,24 @@ export default function UserDashboard() {
               }}>
                 Accede a dashboards de métricas on-chain y off-chain.
               </p>
-              <Button variant="ghost" size="sm">
-                Ver Dashboard →
+              <Button variant="ghost" size="sm" onClick={() => window.location.href = '/profile'}>
+                Ver Perfil →
               </Button>
             </div>
           </div>
         </Card>
 
+        {/* Wallet Status Section */}
+        {isConnected && (
+          <Card title="Estado de Wallet" style={{ marginTop: '1.5rem' }}>
+            <WalletStatus showFullAddress={true} showConnectionTime={true} />
+          </Card>
+        )}
+
         {/* User Profile and Organization Cards */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '1.5rem',
           marginTop: '1.5rem'
         }}>

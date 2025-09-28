@@ -35,14 +35,84 @@ export class MockAuthService {
       localStorage.setItem(STORAGE_KEYS.ORGANIZATIONS, JSON.stringify([DEFAULT_ORG]));
     }
 
-    // Initialize empty users array
+    // Initialize users array with test users
     if (!localStorage.getItem(STORAGE_KEYS.USERS)) {
-      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify([]));
+      const testUsers: User[] = [
+        {
+          id: 'user_test001',
+          email: 'user@test.com',
+          firstName: 'Test',
+          lastName: 'User',
+          emailVerified: true,
+          provider: 'email',
+          termsAccepted: true,
+          privacyAccepted: true,
+          termsAcceptedAt: '2025-09-27T10:00:00.000Z',
+          privacyAcceptedAt: '2025-09-27T10:00:00.000Z',
+          createdAt: '2025-09-27T10:00:00.000Z',
+          updatedAt: '2025-09-27T10:00:00.000Z'
+        },
+        {
+          id: 'user_admin001',
+          email: 'admin@team1.com',
+          firstName: 'Admin',
+          lastName: 'User',
+          emailVerified: true,
+          provider: 'email',
+          termsAccepted: true,
+          privacyAccepted: true,
+          termsAcceptedAt: '2025-09-27T10:00:00.000Z',
+          privacyAcceptedAt: '2025-09-27T10:00:00.000Z',
+          createdAt: '2025-09-27T10:00:00.000Z',
+          updatedAt: '2025-09-27T10:00:00.000Z'
+        },
+        {
+          id: 'user_ambassador001',
+          email: 'ambassador@team1.com',
+          firstName: 'Ambassador',
+          lastName: 'User',
+          emailVerified: true,
+          provider: 'email',
+          termsAccepted: true,
+          privacyAccepted: true,
+          termsAcceptedAt: '2025-09-27T10:00:00.000Z',
+          privacyAcceptedAt: '2025-09-27T10:00:00.000Z',
+          createdAt: '2025-09-27T10:00:00.000Z',
+          updatedAt: '2025-09-27T10:00:00.000Z'
+        }
+      ];
+      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(testUsers));
     }
 
-    // Initialize empty user organizations
+    // Initialize user organizations with test user assignments
     if (!localStorage.getItem(STORAGE_KEYS.USER_ORGANIZATIONS)) {
-      localStorage.setItem(STORAGE_KEYS.USER_ORGANIZATIONS, JSON.stringify([]));
+      const testUserOrgs: UserOrganization[] = [
+        {
+          id: 'user_org_test001',
+          userId: 'user_test001',
+          organizationId: DEFAULT_ORG.id,
+          role: 'user',
+          status: 'active',
+          joinedAt: '2025-09-27T10:00:00.000Z'
+        },
+        {
+          id: 'user_org_admin001',
+          userId: 'user_admin001',
+          organizationId: DEFAULT_ORG.id,
+          role: 'admin',
+          status: 'active',
+          joinedAt: '2025-09-27T10:00:00.000Z'
+        },
+        {
+          id: 'user_org_ambassador001',
+          userId: 'user_ambassador001',
+          organizationId: DEFAULT_ORG.id,
+          role: 'embajador',
+          status: 'active',
+          joinedAt: '2025-09-27T10:00:00.000Z'
+        }
+      ];
+      localStorage.setItem(STORAGE_KEYS.USER_ORGANIZATIONS, JSON.stringify(testUserOrgs));
     }
   }
 
@@ -163,9 +233,19 @@ export class MockAuthService {
       return { success: false, message: 'Email o contraseña incorrectos' };
     }
 
-    // Mock password verification (in real app, use bcrypt.compare)
-    // For mock, we'll just check if it's a valid password format
-    if (!this.validatePassword(data.password)) {
+    // Mock password verification - allow simple test passwords for pre-seeded users
+    const testCredentials = [
+      { email: 'user@test.com', password: 'password123' },
+      { email: 'admin@team1.com', password: 'admin123' },
+      { email: 'ambassador@team1.com', password: 'ambassador123' }
+    ];
+
+    const isTestUser = testCredentials.some(cred =>
+      cred.email === data.email.toLowerCase() && cred.password === data.password
+    );
+
+    // For test users, accept simple passwords; for new users, validate complexity
+    if (!isTestUser && !this.validatePassword(data.password)) {
       return { success: false, message: 'Email o contraseña incorrectos' };
     }
 
