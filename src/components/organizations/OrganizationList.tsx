@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useUserOrganizations } from '@/store/organization-store';
 import { useAuthStore } from '@/store/auth-store';
 import OrganizationCard from './OrganizationCard';
 import JoinOrganizationModal from './JoinOrganizationModal';
-import { useState } from 'react';
 
 export default function OrganizationList() {
+  const router = useRouter();
   const { user } = useAuthStore();
   const { organizations, isLoading, loadOrganizations, error } = useUserOrganizations();
   const [showJoinModal, setShowJoinModal] = useState(false);
@@ -95,7 +96,7 @@ export default function OrganizationList() {
               organization={org}
               onClick={() => {
                 // Navigate to organization detail
-                window.location.href = `/organizations/${org.id}`;
+                router.push(`/organizations/${org.id}`);
               }}
             />
           ))}
