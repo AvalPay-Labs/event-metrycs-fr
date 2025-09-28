@@ -1,26 +1,482 @@
 @import "tailwindcss";
 
 :root {
+  /* Light theme colors - Mac-inspired */
   --background: #ffffff;
-  --foreground: #171717;
+  --background-secondary: #f8f9fa;
+  --foreground: #1d1d1f;
+  --foreground-secondary: #86868b;
+  --foreground-light: #6e6e73;
+
+  /* Mac-style accent colors */
+  --accent-blue: #007aff;
+  --accent-blue-hover: #0051d5;
+  --accent-gray: #f2f2f7;
+  --accent-border: #d2d2d7;
+
+  /* Status colors - Mac system colors */
+  --success: #30d158;
+  --warning: #ff9f0a;
+  --error: #ff3b30;
+
+  /* Mac-style shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+  /* Mac-style blur effects */
+  --blur-light: blur(20px);
+  --backdrop-opacity: rgba(255, 255, 255, 0.8);
+
+  /* Mac spacing system */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-2xl: 2rem;
+  --spacing-3xl: 3rem;
+
+  /* Mac-style border radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+[data-theme="dark"] {
+  /* Dark theme colors - Mac-inspired */
+  --background: #000000;
+  --background-secondary: #1c1c1e;
+  --foreground: #ffffff;
+  --foreground-secondary: #8e8e93;
+  --foreground-light: #aeaeb2;
+
+  /* Mac-style accent colors for dark mode */
+  --accent-blue: #0a84ff;
+  --accent-blue-hover: #409cff;
+  --accent-gray: #1c1c1e;
+  --accent-border: #38383a;
+
+  /* Status colors - Mac dark system colors */
+  --success: #32d74b;
+  --warning: #ff9f0a;
+  --error: #ff453a;
+
+  /* Dark mode shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.5);
+
+  /* Dark mode blur effects */
+  --backdrop-opacity: rgba(0, 0, 0, 0.8);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
   --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-light: var(--foreground-light);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-hover: var(--accent-blue-hover);
+  --color-accent-gray: var(--accent-gray);
+  --color-accent-border: var(--accent-border);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  line-height: 1.47;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Mac-style typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+p {
+  margin: 0;
+  color: var(--foreground-light);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Mac-style buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  min-height: 44px; /* Mac accessibility standard */
+}
+
+.btn-primary {
+  background: var(--accent-blue);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: var(--accent-blue-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+  background: var(--background);
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-border);
+  backdrop-filter: var(--blur-light);
+}
+
+.btn-secondary:hover {
+  background: var(--accent-gray);
+  border-color: var(--accent-blue);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--foreground-secondary);
+  border: none;
+}
+
+.btn-ghost:hover {
+  background: var(--accent-gray);
+  color: var(--foreground);
+}
+
+/* Mac-style inputs */
+.input {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  background: var(--background);
+  color: var(--foreground);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px; /* Mac accessibility standard */
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.2);
+  background: var(--background);
+}
+
+.input::placeholder {
+  color: var(--foreground-secondary);
+}
+
+/* Mac-style cards */
+.card {
+  background: var(--background);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  padding: var(--spacing-xl);
+  border-bottom: 1px solid var(--accent-border);
+  background: var(--background-secondary);
+}
+
+.card-body {
+  padding: var(--spacing-xl);
+}
+
+/* Mac-style sidebar */
+.sidebar {
+  background: var(--background-secondary);
+  backdrop-filter: var(--blur-light);
+  border-right: 1px solid var(--accent-border);
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--foreground-light);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  margin: var(--spacing-xs) var(--spacing-md);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  min-height: 44px; /* Mac accessibility standard */
+}
+
+.sidebar-item:hover {
+  background: var(--accent-gray);
+  color: var(--foreground);
+  transform: translateX(2px);
+}
+
+.sidebar-item.active {
+  background: var(--accent-blue);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-item .icon {
+  margin-right: var(--spacing-md);
+  width: 20px;
+  height: 20px;
+}
+
+/* Mac-style layout */
+.main-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.main-content {
+  background: var(--background);
+  padding: var(--spacing-2xl);
+  overflow-x: hidden;
+}
+
+/* Mac-style header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  border-bottom: 1px solid var(--accent-border);
+  background: var(--background-secondary);
+  backdrop-filter: var(--blur-light);
+  min-height: 72px;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--accent-border);
+  background: var(--background);
+  color: var(--foreground-secondary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle:hover {
+  background: var(--accent-gray);
+  color: var(--foreground);
+  border-color: var(--accent-blue);
+}
+
+/* Mac-style utilities */
+.text-secondary {
+  color: var(--foreground-secondary);
+}
+
+.text-light {
+  color: var(--foreground-light);
+}
+
+.bg-secondary {
+  background: var(--background-secondary);
+}
+
+.bg-gray {
+  background: var(--accent-gray);
+}
+
+.border-light {
+  border-color: var(--accent-border);
+}
+
+.shadow-subtle {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-elevated {
+  box-shadow: var(--shadow-md);
+}
+
+.rounded-mac {
+  border-radius: var(--radius-lg);
+}
+
+/* Mac-style animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mac-style focus indicators */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.2);
+}
+
+/* Mac-style badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-xl);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.badge-success {
+  background: rgba(48, 209, 88, 0.15);
+  color: var(--success);
+}
+
+.badge-warning {
+  background: rgba(255, 159, 10, 0.15);
+  color: var(--warning);
+}
+
+.badge-error {
+  background: rgba(255, 59, 48, 0.15);
+  color: var(--error);
+}
+
+.badge-blue {
+  background: rgba(0, 122, 255, 0.15);
+  color: var(--accent-blue);
+}
+
+/* Responsive design - Mac-style */
+@media (max-width: 768px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    padding: var(--spacing-xl);
+  }
+
+  .header {
+    padding: var(--spacing-lg);
+  }
+
+  h1 {
+    font-size: 1.875rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --accent-border: #000000;
+  }
+
+  [data-theme="dark"] {
+    --accent-border: #ffffff;
+  }
 }
