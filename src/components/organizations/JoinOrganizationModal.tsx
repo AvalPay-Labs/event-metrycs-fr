@@ -55,7 +55,7 @@ export default function JoinOrganizationModal({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-gray-800 border border-gray-700 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-hidden">
-        <div className="p-6 border-b border-gray-700">
+        <div className="card-header border-b border-gray-700">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-white">
               Join an Organization
@@ -72,7 +72,7 @@ export default function JoinOrganizationModal({
           </p>
         </div>
 
-        <div className="p-6 overflow-y-auto max-h-[60vh]">
+        <div className="main-content overflow-y-auto max-h-[60vh]">
           {joinMessage && (
             <div className={`mb-4 p-4 rounded-lg ${
               joinMessage.includes('sent')
@@ -124,7 +124,7 @@ export default function JoinOrganizationModal({
                 return (
                   <div
                     key={org.id}
-                    className="border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors bg-gray-800"
+                    className="border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors card-header"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -198,7 +198,7 @@ export default function JoinOrganizationModal({
           </div>
         </div>
 
-        <div className="p-6 border-t border-gray-700 bg-gray-900">
+        <div className="card-header border-t border-gray-700">
           <div className="flex justify-end">
             <button
               onClick={onClose}

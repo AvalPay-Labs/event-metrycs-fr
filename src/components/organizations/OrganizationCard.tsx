@@ -51,7 +51,7 @@ export default function OrganizationCard({
 
   return (
     <div
-      className={`bg-gray-900 rounded-lg border border-gray-800 p-6 hover:shadow-md transition-shadow ${
+      className={`rounded-lg border border-gray-800 p-6 hover:shadow-md transition-shadow ${
         onClick ? 'cursor-pointer hover:border-gray-700' : ''
       }`}
       onClick={onClick}

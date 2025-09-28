@@ -49,13 +49,13 @@ export default function Button({
 
   const variantStyles: Record<string, React.CSSProperties> = {
     primary: {
-      background: 'var(--accent-blue)',
+      background: 'var(--accent-primary)',
       color: 'white',
       boxShadow: 'var(--shadow-sm)'
     },
     secondary: {
       background: 'white',
-      color: 'var(--accent-blue)',
+      color: 'var(--accent-primary)',
       border: '1px solid var(--accent-border)'
     },
     ghost: {
@@ -67,7 +67,7 @@ export default function Button({
 
   const hoverStyles: Record<string, React.CSSProperties> = {
     primary: {
-      background: 'var(--accent-blue-hover)',
+      background: 'var(--accent-primary-hover)',
       boxShadow: 'var(--shadow-md)'
     },
     secondary: {
