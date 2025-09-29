@@ -2,8 +2,6 @@
 
 import { useEffect } from 'react';
 import { useOrganizationDetail } from '@/store/organization-store';
-import { useAuthStore } from '@/store/auth-store';
-import type { OrganizationEvent, OrganizationMember } from '@/lib/mock-organizations';
 
 interface OrganizationDetailProps {
   organizationId: number;
@@ -29,15 +27,15 @@ const formatEventDate = (dateString: string) => {
 const getEventStatusColor = (status: string) => {
   switch (status) {
     case 'upcoming':
-      return 'bg-orange-100 text-orange-800 border-orange-200';
+      return 'badge badge-warning';
     case 'ongoing':
-      return 'bg-green-100 text-green-800 border-green-200';
+      return 'badge badge-success';
     case 'completed':
-      return 'bg-gray-100 text-gray-800 border-gray-200';
+      return 'badge';
     case 'cancelled':
-      return 'bg-red-100 text-red-800 border-red-200';
+      return 'badge badge-error';
     default:
-      return 'bg-gray-100 text-gray-800 border-gray-200';
+      return 'badge';
   }
 };
 
@@ -66,10 +64,10 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <div className="bg-gray-800 h-32 rounded-lg animate-pulse" />
+        <div className="card-header h-32 rounded-lg animate-pulse" />
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-gray-800 h-64 rounded-lg animate-pulse" />
-          <div className="bg-gray-800 h-64 rounded-lg animate-pulse" />
+          <div className="card-header h-64 rounded-lg animate-pulse" />
+          <div className="card-header h-64 rounded-lg animate-pulse" />
         </div>
       </div>
     );
@@ -77,12 +75,12 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
 
   if (error) {
     return (
-      <div className="bg-red-900/20 border border-red-800 rounded-lg p-6">
+      <div style={{ background: 'var(--error-light)', border: '1px solid var(--error)', borderRadius: 'var(--radius-lg)', padding: 'var(--spacing-xl)' }}>
         <div className="flex items-center space-x-2">
           <span className="text-red-500 text-xl">⚠️</span>
           <div>
-            <h3 className="font-medium text-red-300">Error loading organization</h3>
-            <p className="text-red-400 mt-1">{error}</p>
+            <h3 className="font-medium" style={{ color: 'var(--error)' }}>Error loading organization</h3>
+            <p style={{ color: 'var(--error)', marginTop: 'var(--spacing-xs)' }}>{error}</p>
           </div>
         </div>
       </div>
@@ -93,10 +91,10 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">🏢</div>
-        <h3 className="text-lg font-medium text-white mb-2">
+        <h3 className="text-lg font-medium mb-2" style={{ color: 'var(--foreground)' }}>
           Organization not found
         </h3>
-        <p className="text-gray-400">
+        <p style={{ color: 'var(--foreground-secondary)' }}>
           The organization you&apos;re looking for doesn&apos;t exist or you don&apos;t have access to it.
         </p>
       </div>
@@ -109,7 +107,8 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
   return (
     <div className="space-y-6">
       {/* Organization Header */}
-      <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
+      <div className="card">
+        <div className="card-header">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-4">
             <div className="text-4xl">
@@ -119,15 +118,15 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                organization.type === 'default' ? '🏠' : '🏢'}
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+              <h1 className="text-2xl font-bold flex items-center gap-3" style={{ color: 'var(--foreground)' }}>
                 {organization.name}
                 {organization.isDefault && (
-                  <span className="text-sm bg-orange-100 text-orange-800 px-3 py-1 rounded-full">
+                  <span className="badge badge-primary">
                     Default Organization
                   </span>
                 )}
               </h1>
-              <p className="text-gray-400 capitalize mt-1">
+              <p className="capitalize mt-1" style={{ color: 'var(--foreground-secondary)' }}>
                 {organization.type} Organization
               </p>
             </div>
@@ -135,34 +134,34 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
 
           {userRole && (
             <div className="text-right">
-              <span className="text-sm text-gray-400">Your role</span>
-              <div className="text-lg font-medium text-orange-600 capitalize">
+              <span className="text-sm" style={{ color: 'var(--foreground-secondary)' }}>Your role</span>
+              <div className="text-lg font-medium capitalize" style={{ color: 'var(--accent-primary)' }}>
                 {userRole}
               </div>
             </div>
           )}
         </div>
 
-        <p className="text-gray-300 mb-6">
+        <p className="mb-6" style={{ color: 'var(--foreground-light)' }}>
           {organization.description}
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="text-center p-4 bg-gray-700 rounded-lg">
+          <div className="text-center p-4 card-header rounded-lg" style={{ border: '1px solid var(--accent-border)' }} >
             <div className="text-2xl font-bold text-white">{organization.memberCount}</div>
             <div className="text-sm text-gray-400">Members</div>
           </div>
-          <div className="text-center p-4 bg-gray-700 rounded-lg">
+          <div className="text-center p-4 card-header rounded-lg" style={{ border: '1px solid var(--accent-border)' }} >
             <div className="text-2xl font-bold text-white">{organization.eventsCount}</div>
             <div className="text-sm text-gray-400">Events</div>
           </div>
-          <div className="text-center p-4 bg-gray-700 rounded-lg">
+          <div className="text-center p-4 card-header rounded-lg" style={{ border: '1px solid var(--accent-border)' }} >
             <div className="text-2xl font-bold text-white">
               {organization.isPublic ? 'Public' : 'Private'}
             </div>
             <div className="text-sm text-gray-400">Visibility</div>
           </div>
-          <div className="text-center p-4 bg-gray-700 rounded-lg">
+          <div className="text-center p-4 card-header rounded-lg" style={{ border: '1px solid var(--accent-border)' }} >
             <div className="text-2xl font-bold text-white">
               {organization.status === 'active' ? '🟢' : '🔴'}
             </div>
@@ -197,18 +196,28 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
             </div>
           </div>
         )}
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Members Section */}
-        <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
-          <h2 className="text-lg font-semibold text-white mb-4">
-            Team Members ({members.length})
-          </h2>
+        <div className="card">
+          <div className="card-header">
+            <h2 className="text-lg font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
+              Team Members ({members.length})
+            </h2>
+          </div>
+          <div className="card-body">
 
           <div className="space-y-3 max-h-96 overflow-y-auto">
             {members.map((member) => (
-              <div key={member.id} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+              <div key={member.id} className="flex items-center justify-between p-3 rounded-lg" style={{
+                transition: 'background-color 0.2s ease'
+              }} onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--accent-gray-light)';
+              }} onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+              }}>
                 <div className="flex items-center space-x-3">
                   <img
                     src={member.avatarUrl}
@@ -218,8 +227,8 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                     height={40}
                   />
                   <div>
-                    <div className="font-medium text-white">{member.name}</div>
-                    <div className="text-sm text-gray-400">{member.email}</div>
+                    <div className="font-medium" style={{ color: 'var(--foreground)' }}>{member.name}</div>
+                    <div className="text-sm" style={{ color: 'var(--foreground-secondary)' }}>{member.email}</div>
                   </div>
                 </div>
                 <div className="text-right">
@@ -231,30 +240,40 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                   }`}>
                     {member.role.charAt(0).toUpperCase() + member.role.slice(1)}
                   </span>
-                  <div className="text-xs text-gray-400 mt-1">
+                  <div className="text-xs mt-1" style={{ color: 'var(--foreground-secondary)' }}>
                     {new Date(member.joinedAt).toLocaleDateString()}
                   </div>
                 </div>
               </div>
             ))}
           </div>
+          </div>
         </div>
 
         {/* Events Section */}
-        <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
-          <h2 className="text-lg font-semibold text-white mb-4">
-            Recent Events ({events.length})
-          </h2>
+        <div className="card">
+          <div className="card-header">
+            <h2 className="text-lg font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
+              Recent Events ({events.length})
+            </h2>
+          </div>
+          <div className="card-body">
 
           <div className="space-y-3 max-h-96 overflow-y-auto">
             {events.map((event) => (
-              <div key={event.id} className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
+              <div key={event.id} className="rounded-lg p-4 transition-colors" style={{
+                border: '1px solid var(--accent-border)'
+              }} onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--accent-gray)';
+              }} onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--accent-border)';
+              }}>
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center space-x-2">
                     <span className="text-lg">{getEventTypeIcon(event.type)}</span>
                     <div>
-                      <h4 className="font-medium text-white">{event.title}</h4>
-                      <p className="text-sm text-gray-400 capitalize">{event.type}</p>
+                      <h4 className="font-medium" style={{ color: 'var(--foreground)' }}>{event.title}</h4>
+                      <p className="text-sm capitalize" style={{ color: 'var(--foreground-secondary)' }}>{event.type}</p>
                     </div>
                   </div>
                   <span className={`text-xs font-medium px-2 py-1 rounded-full border ${getEventStatusColor(event.status)}`}>
@@ -262,30 +281,17 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                   </span>
                 </div>
 
-                <p className="text-sm text-gray-300 mb-3 line-clamp-2">
+                <p className="text-sm mb-3 line-clamp-2" style={{ color: 'var(--foreground-light)' }}>
                   {event.description}
                 </p>
 
-                <div className="flex items-center justify-between text-sm text-gray-400">
+                <div className="flex items-center justify-between text-sm" style={{ color: 'var(--foreground-secondary)' }}>
                   <span>👥 {event.attendees} attendees</span>
                   <span>{formatEventDate(event.date)}</span>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Demo Notice */}
-      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-        <div className="flex items-start space-x-3">
-          <span className="text-orange-500 text-lg">💡</span>
-          <div>
-            <h4 className="font-medium text-orange-900">Demo Organization Data</h4>
-            <p className="text-sm text-orange-700 mt-1">
-              This organization and its data are simulated for demonstration purposes.
-              In the full platform, you&apos;ll see real team members, actual events, and live metrics.
-            </p>
           </div>
         </div>
       </div>
