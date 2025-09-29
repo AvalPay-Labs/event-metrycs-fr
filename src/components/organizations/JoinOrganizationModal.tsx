@@ -184,18 +184,6 @@ export default function JoinOrganizationModal({
               })}
             </div>
           )}
-
-          <div className="mt-6 pt-4 border-t border-gray-700">
-            <div className="bg-yellow-900/20 border border-yellow-800 rounded-lg p-3">
-              <div className="flex items-start space-x-2">
-                <span className="text-yellow-400">💡</span>
-                <div className="text-xs text-yellow-300">
-                  <p className="font-medium">Demo Mode:</p>
-                  <p>Join requests are simulated. In the real platform, organization admins will review and approve your requests.</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="card-header border-t border-gray-700">
