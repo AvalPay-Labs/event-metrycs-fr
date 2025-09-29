@@ -1,6 +1,6 @@
 'use client';
 
-import { useTheme } from '@/components/providers/theme-provider';
+// import { useTheme } from '@/components/providers/theme-provider';
 
 export function ThemeToggle() {
   // Always show dark theme - disabled toggle

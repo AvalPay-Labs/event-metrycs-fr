@@ -42,7 +42,7 @@ function generateMockWalletAddress(type: WalletType): string {
 // Storage keys for persistence
 const WALLET_STORAGE_KEY = 'eventmetrics_wallet_connection';
 
-export const useWalletStore = create<WalletState>((set, get) => ({
+export const useWalletStore = create<WalletState>((set) => ({
   connection: null,
   isConnecting: false,
   error: null,
@@ -77,7 +77,7 @@ export const useWalletStore = create<WalletState>((set, get) => ({
       });
 
       return true;
-    } catch (error) {
+    } catch {
       set({
         error: 'Failed to connect wallet. Please try again.',
         isConnecting: false
@@ -117,7 +117,7 @@ export const useWalletStore = create<WalletState>((set, get) => ({
             connection,
             isConnected: true
           });
-        } catch (error) {
+        } catch {
           // Invalid stored data, clear it
           localStorage.removeItem(WALLET_STORAGE_KEY);
         }

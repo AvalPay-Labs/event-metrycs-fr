@@ -89,16 +89,16 @@ export const useOrganizationStore = create<OrganizationStore>()(
     (set, get) => ({
       ...initialState,
 
-      loadUserOrganizations: async (userId: number) => {
+      loadUserOrganizations: async () => {
         set({ isLoadingUserOrgs: true, error: null });
 
         try {
-          const userOrganizations = await MockOrganizationService.getUserOrganizations(userId);
+          const userOrganizations = await MockOrganizationService.getUserOrganizations();
           set({
             userOrganizations,
             isLoadingUserOrgs: false
           });
-        } catch (error) {
+        } catch {
           set({
             error: 'Failed to load your organizations',
             isLoadingUserOrgs: false
@@ -115,7 +115,7 @@ export const useOrganizationStore = create<OrganizationStore>()(
             publicOrganizations,
             isLoadingPublicOrgs: false
           });
-        } catch (error) {
+        } catch {
           set({
             error: 'Failed to load public organizations',
             isLoadingPublicOrgs: false
@@ -140,7 +140,7 @@ export const useOrganizationStore = create<OrganizationStore>()(
               isLoadingOrgDetail: false
             });
           }
-        } catch (error) {
+        } catch {
           set({
             error: 'Failed to load organization details',
             isLoadingOrgDetail: false
@@ -148,11 +148,11 @@ export const useOrganizationStore = create<OrganizationStore>()(
         }
       },
 
-      requestToJoinOrganization: async (orgId: number, userId: number) => {
+      requestToJoinOrganization: async (orgId: number) => {
         set({ isJoining: true, error: null });
 
         try {
-          const result = await MockOrganizationService.requestToJoinOrganization(orgId, userId);
+          const result = await MockOrganizationService.requestToJoinOrganization(orgId);
 
           if (result.success) {
             // Add to join requests
@@ -169,7 +169,7 @@ export const useOrganizationStore = create<OrganizationStore>()(
           }
 
           return result;
-        } catch (error) {
+        } catch {
           const errorResult = { success: false, message: 'Failed to send join request' };
           set({
             error: errorResult.message,

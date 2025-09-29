@@ -186,11 +186,11 @@ export default function JoinOrganizationModal({
           )}
         </div>
 
-        <div className="card-header border-t border-gray-700">
+        <div className="card-header" style={{ borderTop: '1px solid var(--accent-border)' }}>
           <div className="flex justify-end">
             <button
               onClick={onClose}
-              className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+              className="btn btn-secondary"
             >
               Close
             </button>

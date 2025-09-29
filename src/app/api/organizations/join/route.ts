@@ -17,11 +17,10 @@ export async function POST(request: NextRequest) {
     }
 
     // In a real implementation, get userId from authenticated session
-    const userId = 1;
+    // const userId = 1;
 
     const result = await MockOrganizationService.requestToJoinOrganization(
-      organizationId,
-      userId
+      organizationId
     );
 
     const statusCode = result.success ? 200 : 400;

@@ -3,11 +3,10 @@
 // User dashboard component showing mock data
 // Displays user info, organization membership, and next steps
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthStore } from '@/store/auth-store';
 import { useWalletStore } from '@/store/wallet-store';
 import { MockAuthService } from '@/lib/mock-auth';
-import { UserOrganization } from '@/lib/mock-data';
 import MainLayout from '@/components/layout/MainLayout';
 import Card from '@/components/ui/Card';
 import Timeline from '@/components/ui/Timeline';
@@ -16,9 +15,8 @@ import { WalletButton, WalletStatus } from '@/components/wallet';
 import { OrganizationList } from '@/components/organizations';
 
 export default function UserDashboard() {
-  const { user, logout } = useAuthStore();
+  const { user } = useAuthStore();
   const { initializeWallet, isConnected } = useWalletStore();
-  const [userOrganizations] = useState<UserOrganization[]>([]);
 
   useEffect(() => {
     if (user) {

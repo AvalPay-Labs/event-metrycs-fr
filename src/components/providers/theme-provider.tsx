@@ -26,8 +26,7 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({
-  children,
-  defaultTheme = 'dark'
+  children
 }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
@@ -43,7 +42,7 @@ export function ThemeProvider({
     document.documentElement.setAttribute('data-theme', 'dark');
   }, []);
 
-  const setTheme = (newTheme: Theme) => {
+  const setTheme = () => {
     // Force dark theme only - ignore attempts to change
     setThemeState('dark');
     localStorage.setItem('theme', 'dark');
@@ -52,7 +51,7 @@ export function ThemeProvider({
 
   const toggleTheme = () => {
     // Disable theme toggle - always stay dark
-    setTheme('dark');
+    setTheme();
   };
 
   // Prevent hydration mismatch by rendering a loading state

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Image from 'next/image';
 import { useOrganizationDetail } from '@/store/organization-store';
 
 interface OrganizationDetailProps {
@@ -148,48 +149,48 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div className="text-center p-4 card-header rounded-lg" style={{ border: '1px solid var(--accent-border)' }} >
-            <div className="text-2xl font-bold text-white">{organization.memberCount}</div>
-            <div className="text-sm text-gray-400">Members</div>
+            <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{organization.memberCount}</div>
+            <div className="text-sm" style={{ color: 'var(--foreground-secondary)' }}>Members</div>
           </div>
           <div className="text-center p-4 card-header rounded-lg" style={{ border: '1px solid var(--accent-border)' }} >
-            <div className="text-2xl font-bold text-white">{organization.eventsCount}</div>
-            <div className="text-sm text-gray-400">Events</div>
+            <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{organization.eventsCount}</div>
+            <div className="text-sm" style={{ color: 'var(--foreground-secondary)' }}>Events</div>
           </div>
           <div className="text-center p-4 card-header rounded-lg" style={{ border: '1px solid var(--accent-border)' }} >
-            <div className="text-2xl font-bold text-white">
+            <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
               {organization.isPublic ? 'Public' : 'Private'}
             </div>
-            <div className="text-sm text-gray-400">Visibility</div>
+            <div className="text-sm" style={{ color: 'var(--foreground-secondary)' }}>Visibility</div>
           </div>
           <div className="text-center p-4 card-header rounded-lg" style={{ border: '1px solid var(--accent-border)' }} >
-            <div className="text-2xl font-bold text-white">
+            <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
               {organization.status === 'active' ? '🟢' : '🔴'}
             </div>
-            <div className="text-sm text-gray-400">Status</div>
+            <div className="text-sm" style={{ color: 'var(--foreground-secondary)' }}>Status</div>
           </div>
         </div>
 
         {permissions && (
-          <div className="border-t border-gray-200 pt-4">
-            <h4 className="text-sm font-medium text-white mb-3">Your Permissions</h4>
+          <div className="border-t pt-4" style={{ borderColor: 'var(--accent-border)' }}>
+            <h4 className="text-sm font-medium mb-3" style={{ color: 'var(--foreground)' }}>Your Permissions</h4>
             <div className="flex flex-wrap gap-2">
               {permissions.canViewMetrics && (
-                <span className="text-xs bg-green-50 text-green-700 px-3 py-1 rounded-full border border-green-200">
+                <span className="badge badge-success">
                   📊 View Metrics
                 </span>
               )}
               {permissions.canCreateEvents && (
-                <span className="text-xs bg-orange-50 text-orange-700 px-3 py-1 rounded-full border border-orange-200">
+                <span className="badge badge-primary">
                   ➕ Create Events
                 </span>
               )}
               {permissions.canManageMembers && (
-                <span className="text-xs bg-purple-50 text-purple-700 px-3 py-1 rounded-full border border-purple-200">
+                <span className="badge badge-purple">
                   👤 Manage Members
                 </span>
               )}
               {permissions.canViewReports && (
-                <span className="text-xs bg-orange-50 text-orange-700 px-3 py-1 rounded-full border border-orange-200">
+                <span className="badge badge-primary">
                   📈 View Reports
                 </span>
               )}
@@ -219,7 +220,7 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                 e.currentTarget.style.background = 'transparent';
               }}>
                 <div className="flex items-center space-x-3">
-                  <img
+                  <Image
                     src={member.avatarUrl}
                     alt={member.name}
                     className="w-10 h-10 rounded-full"
@@ -232,11 +233,11 @@ export default function OrganizationDetail({ organizationId }: OrganizationDetai
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                    member.role === 'admin' ? 'bg-red-100 text-red-800' :
-                    member.role === 'ambassador' ? 'bg-orange-100 text-orange-800' :
-                    member.role === 'staff' ? 'bg-green-100 text-green-800' :
-                    'bg-gray-100 text-gray-800'
+                  <span className={`badge ${
+                    member.role === 'admin' ? 'badge-error' :
+                    member.role === 'ambassador' ? 'badge-primary' :
+                    member.role === 'staff' ? 'badge-success' :
+                    ''
                   }`}>
                     {member.role.charAt(0).toUpperCase() + member.role.slice(1)}
                   </span>

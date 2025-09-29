@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { MockOrganizationService } from '@/lib/mock-organizations';
 
 export async function GET() {
   try {
     // In a real implementation, get userId from authenticated session
     // For now, using mock user ID
-    const userId = 1;
+    // const userId = 1;
 
-    const userOrganizations = await MockOrganizationService.getUserOrganizations(userId);
+    const userOrganizations = await MockOrganizationService.getUserOrganizations();
 
     return NextResponse.json({
       success: true,

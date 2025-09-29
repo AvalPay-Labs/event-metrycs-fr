@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { MockOrganizationService } from '@/lib/mock-organizations';
 
 export async function GET() {

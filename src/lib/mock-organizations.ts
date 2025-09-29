@@ -150,8 +150,8 @@ export const generateMockEvents = (organizationId: number, count: number): Organ
   const eventTypes: Array<'workshop' | 'hackathon' | 'meetup' | 'conference'> =
     ['workshop', 'hackathon', 'meetup', 'conference'];
 
-  const statuses: Array<'upcoming' | 'ongoing' | 'completed' | 'cancelled'> =
-    ['upcoming', 'ongoing', 'completed', 'cancelled'];
+  // const statuses: Array<'upcoming' | 'ongoing' | 'completed' | 'cancelled'> =
+  //   ['upcoming', 'ongoing', 'completed', 'cancelled'];
 
   return Array.from({ length: count }, (_, index) => {
     const baseDate = new Date();
@@ -171,13 +171,13 @@ export const generateMockEvents = (organizationId: number, count: number): Organ
 };
 
 export class MockOrganizationService {
-  static async getUserOrganizations(userId: number): Promise<Array<Organization & UserOrganization>> {
+  static async getUserOrganizations(): Promise<Array<Organization & UserOrganization>> {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     return mockUserOrganizations.map(userOrg => {
       const org = mockOrganizations.find(o => o.id === userOrg.organizationId)!;
-      const { status: _orgStatus, ...orgRest } = org;
+      const { ...orgRest } = org;
       return {
         ...orgRest,
         organizationId: userOrg.organizationId,
@@ -215,7 +215,7 @@ export class MockOrganizationService {
     };
   }
 
-  static async requestToJoinOrganization(orgId: number, userId: number): Promise<{
+  static async requestToJoinOrganization(orgId: number): Promise<{
     success: boolean;
     message: string;
   }> {

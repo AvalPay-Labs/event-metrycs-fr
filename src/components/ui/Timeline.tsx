@@ -39,7 +39,7 @@ export default function Timeline({ items, title }: TimelineProps) {
           background: 'var(--accent-border)'
         }} />
         
-        {items.map((item, index) => (
+        {items.map((item) => (
           <div key={item.id} style={{ 
             position: 'relative', 
             paddingLeft: '3rem', 
