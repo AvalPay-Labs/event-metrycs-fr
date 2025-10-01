@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useWalletStore, WalletType } from '@/store/wallet-store';
 import Button from '@/components/ui/Button';
 
@@ -33,8 +34,13 @@ const walletOptions = [
 export default function WalletConnectionModal({ isOpen, onClose }: WalletConnectionModalProps) {
   const { connectWallet, isConnecting, error, clearError } = useWalletStore();
   const [selectedWallet, setSelectedWallet] = useState<WalletType | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
 
   const handleWalletSelect = async (walletType: WalletType) => {
     setSelectedWallet(walletType);
@@ -149,113 +155,117 @@ export default function WalletConnectionModal({ isOpen, onClose }: WalletConnect
     fontSize: '0.875rem'
   };
 
-  return (
-    <div style={modalStyles} onClick={onClose}>
-      <div style={modalContentStyles} onClick={(e) => e.stopPropagation()}>
-        <div style={headerStyles}>
-          <h2 style={{
-            fontSize: '1.25rem',
-            fontWeight: '600',
-            color: 'var(--foreground)',
-            margin: 0
-          }}>
-            Connect Wallet
-          </h2>
-          <button
-            onClick={onClose}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '1.5rem',
-              cursor: 'pointer',
-              color: 'var(--foreground-light)',
-              padding: '0.25rem'
-            }}
-          >
-            ×
-          </button>
-        </div>
-
-        <div style={bodyStyles}>
-          <div style={demoTagStyles}>
-            DEMO MODE
-          </div>
-
-          <p style={{
-            fontSize: '0.875rem',
-            color: 'var(--foreground-light)',
-            marginBottom: '1.5rem',
-            lineHeight: '1.5'
-          }}>
-            This is a simulation of wallet connection. No real wallet extensions are required.
-          </p>
-
-          {error && (
-            <div style={errorStyles}>
-              {error}
-            </div>
-          )}
-
-          <div>
-            {walletOptions.map((wallet) => (
-              <div
-                key={wallet.type}
-                style={walletOptionStyles}
-                onMouseEnter={(e) => {
-                  Object.assign(e.currentTarget.style, walletOptionHoverStyles);
-                }}
-                onMouseLeave={(e) => {
-                  Object.assign(e.currentTarget.style, walletOptionStyles);
-                }}
-                onClick={() => handleWalletSelect(wallet.type)}
-              >
-                <div style={iconStyles}>
-                  {wallet.icon}
-                </div>
-                <div style={walletInfoStyles}>
-                  <div style={walletNameStyles}>
-                    {wallet.name}
-                  </div>
-                  <div style={walletDescStyles}>
-                    {wallet.description}
-                  </div>
-                </div>
-                {isConnecting && selectedWallet === wallet.type && (
-                  <div style={loadingStyles}>
-                    <div style={{
-                      width: '1rem',
-                      height: '1rem',
-                      border: '2px solid var(--accent-light-gray)',
-                      borderTop: '2px solid var(--accent-blue)',
-                      borderRadius: '50%',
-                      animation: 'spin 1s linear infinite'
-                    }} />
-                    Connecting...
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div style={{ marginTop: '1.5rem' }}>
-            <Button
-              variant="secondary"
+  const modalContent = (
+    <>
+      <div style={modalStyles} onClick={onClose}>
+        <div style={modalContentStyles} onClick={(e) => e.stopPropagation()}>
+          <div style={headerStyles}>
+            <h2 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: 'var(--foreground)',
+              margin: 0
+            }}>
+              Connect Wallet
+            </h2>
+            <button
               onClick={onClose}
-              style={{ width: '100%' }}
-              disabled={isConnecting}
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '1.5rem',
+                cursor: 'pointer',
+                color: 'var(--foreground-light)',
+                padding: '0.25rem'
+              }}
             >
-              Cancel
-            </Button>
+              ×
+            </button>
+          </div>
+
+          <div style={bodyStyles}>
+            <div style={demoTagStyles}>
+              DEMO MODE
+            </div>
+
+            <p style={{
+              fontSize: '0.875rem',
+              color: 'var(--foreground-light)',
+              marginBottom: '1.5rem',
+              lineHeight: '1.5'
+            }}>
+              This is a simulation of wallet connection. No real wallet extensions are required.
+            </p>
+
+            {error && (
+              <div style={errorStyles}>
+                {error}
+              </div>
+            )}
+
+            <div>
+              {walletOptions.map((wallet) => (
+                <div
+                  key={wallet.type}
+                  style={walletOptionStyles}
+                  onMouseEnter={(e) => {
+                    Object.assign(e.currentTarget.style, walletOptionHoverStyles);
+                  }}
+                  onMouseLeave={(e) => {
+                    Object.assign(e.currentTarget.style, walletOptionStyles);
+                  }}
+                  onClick={() => handleWalletSelect(wallet.type)}
+                >
+                  <div style={iconStyles}>
+                    {wallet.icon}
+                  </div>
+                  <div style={walletInfoStyles}>
+                    <div style={walletNameStyles}>
+                      {wallet.name}
+                    </div>
+                    <div style={walletDescStyles}>
+                      {wallet.description}
+                    </div>
+                  </div>
+                  {isConnecting && selectedWallet === wallet.type && (
+                    <div style={loadingStyles}>
+                      <div style={{
+                        width: '1rem',
+                        height: '1rem',
+                        border: '2px solid var(--accent-light-gray)',
+                        borderTop: '2px solid var(--accent-blue)',
+                        borderRadius: '50%',
+                        animation: 'spin 1s linear infinite'
+                      }} />
+                      Connecting...
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginTop: '1.5rem' }}>
+              <Button
+                variant="secondary"
+                onClick={onClose}
+                style={{ width: '100%' }}
+                disabled={isConnecting}
+              >
+                Cancel
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
-    </div>
+        <style jsx>{`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}</style>
+      </div>
+    </>
   );
+
+  return createPortal(modalContent, document.body);
 }
