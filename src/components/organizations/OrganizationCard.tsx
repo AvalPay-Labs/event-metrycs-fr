@@ -12,14 +12,14 @@ interface OrganizationCardProps {
 const getRoleBadgeColor = (role: string) => {
   switch (role) {
     case 'admin':
-      return 'text-red-400 bg-red-900/20 border border-red-800';
+      return 'text-[var(--error)] bg-[var(--error-light)] border-[var(--error)]';
     case 'ambassador':
-      return 'text-orange-400 bg-orange-900/20 border border-orange-800';
+      return 'text-[var(--accent-primary)] bg-[var(--accent-primary-light)] border-[var(--accent-primary)]';
     case 'staff':
-      return 'text-green-400 bg-green-900/20 border border-green-800';
+      return 'text-[var(--success)] bg-[var(--success-light)] border-[var(--success)]';
     case 'user':
     default:
-      return 'text-gray-400 bg-gray-900/20 border border-gray-700';
+      return 'text-[var(--foreground-secondary)] bg-[var(--background-secondary)] border-[var(--accent-border)]';
   }
 };
 
@@ -51,8 +51,8 @@ export default function OrganizationCard({
 
   return (
     <div
-      className={`rounded-lg border border-gray-800 p-6 hover:shadow-md transition-shadow ${
-        onClick ? 'cursor-pointer hover:border-gray-700' : ''
+      className={`rounded-[var(--radius-lg)] border border-[var(--accent-border)] p-[var(--spacing-xl)] hover:shadow-[var(--shadow-md)] transition-shadow ${
+        onClick ? 'cursor-pointer hover:border-[var(--foreground-light)]' : ''
       }`}
       onClick={onClick}
     >
@@ -62,15 +62,15 @@ export default function OrganizationCard({
             {getOrgTypeIcon(organization.type)}
           </div>
           <div>
-            <h3 className="font-semibold text-white flex items-center gap-2">
+            <h3 className="font-semibold text-[var(--foreground)] flex items-center gap-2">
               {organization.name}
               {organization.isDefault && (
-                <span className="text-xs bg-orange-900/20 text-orange-400 px-2 py-1 rounded-full border border-orange-800">
+                <span className="text-xs bg-[var(--accent-primary-light)] text-[var(--accent-primary)] px-2 py-1 rounded-full border border-[var(--accent-primary)]">
                   Default
                 </span>
               )}
             </h3>
-            <p className="text-sm text-gray-400 capitalize">
+            <p className="text-sm text-[var(--foreground-secondary)] capitalize">
               {organization.type} Organization
             </p>
           </div>
@@ -83,11 +83,11 @@ export default function OrganizationCard({
         )}
       </div>
 
-      <p className="text-sm text-gray-300 mb-4 line-clamp-2">
+      <p className="text-sm text-[var(--foreground-light)] mb-4 line-clamp-2">
         {organization.description}
       </p>
 
-      <div className="flex items-center justify-between text-sm text-gray-400">
+      <div className="flex items-center justify-between text-sm text-[var(--foreground-secondary)]">
         <div className="flex items-center space-x-4">
           <span className="flex items-center gap-1">
             👥 {organization.memberCount} members
@@ -98,33 +98,33 @@ export default function OrganizationCard({
         </div>
 
         {organization.role && 'status' in organization && (organization as { status?: string }).status === 'pending' && (
-          <span className="text-xs bg-yellow-900/20 text-yellow-400 px-2 py-1 rounded-full border border-yellow-800">
+          <span className="text-xs bg-[var(--warning-light)] text-[var(--warning)] px-2 py-1 rounded-full border border-[var(--warning)]">
             Pending
           </span>
         )}
       </div>
 
       {permissions && (
-        <div className="mt-4 pt-4 border-t border-gray-800">
-          <div className="text-xs text-gray-400 mb-2">Your permissions:</div>
+        <div className="mt-4 pt-4 border-t border-[var(--accent-border)]">
+          <div className="text-xs text-[var(--foreground-secondary)] mb-2">Your permissions:</div>
           <div className="flex flex-wrap gap-1">
             {permissions.canViewMetrics && (
-              <span className="text-xs bg-green-900/20 text-green-400 px-2 py-1 rounded border border-green-800">
+              <span className="text-xs bg-[var(--success-light)] text-[var(--success)] px-2 py-1 rounded border border-[var(--success)]">
                 📊 View Metrics
               </span>
             )}
             {permissions.canCreateEvents && (
-              <span className="text-xs bg-orange-900/20 text-orange-400 px-2 py-1 rounded border border-orange-800">
+              <span className="text-xs bg-[var(--accent-primary-light)] text-[var(--accent-primary)] px-2 py-1 rounded border border-[var(--accent-primary)]">
                 ➕ Create Events
               </span>
             )}
             {permissions.canManageMembers && (
-              <span className="text-xs bg-purple-900/20 text-purple-400 px-2 py-1 rounded border border-purple-800">
+              <span className="text-xs bg-[var(--accent-blue-light)] text-[var(--accent-blue)] px-2 py-1 rounded border border-[var(--accent-blue)]">
                 👤 Manage Members
               </span>
             )}
             {permissions.canViewReports && (
-              <span className="text-xs bg-orange-900/20 text-orange-400 px-2 py-1 rounded border border-orange-800">
+              <span className="text-xs bg-[var(--accent-primary-light)] text-[var(--accent-primary)] px-2 py-1 rounded border border-[var(--accent-primary)]">
                 📈 View Reports
               </span>
             )}
@@ -132,8 +132,8 @@ export default function OrganizationCard({
         </div>
       )}
 
-      <div className="mt-4 pt-3 border-t border-gray-800">
-        <div className="text-xs text-gray-500 flex items-center justify-between">
+      <div className="mt-4 pt-3 border-t border-[var(--accent-border)]">
+        <div className="text-xs text-[var(--foreground-light)] flex items-center justify-between">
           <span>🟢 DEMO DATA - EventMetrics Platform</span>
           <span>
             {organization.isPublic ? '🌐 Public' : '🔒 Private'}

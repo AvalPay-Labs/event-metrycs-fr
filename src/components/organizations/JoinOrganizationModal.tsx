@@ -54,20 +54,20 @@ export default function JoinOrganizationModal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-gray-800 border border-gray-700 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-hidden">
-        <div className="card-header border-b border-gray-700">
+      <div className="bg-[var(--background-secondary)] border border-[var(--accent-border)] rounded-lg max-w-2xl w-full max-h-[80vh] overflow-hidden">
+        <div className="card-header border-b border-[var(--accent-border)]">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-[var(--foreground)]">
               Join an Organization
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-300 text-xl"
+              className="text-[var(--foreground-secondary)] hover:text-[var(--foreground-light)] text-xl"
             >
               ✕
             </button>
           </div>
-          <p className="text-sm text-gray-400 mt-2">
+          <p className="text-sm text-[var(--foreground-secondary)] mt-2">
             Browse and request to join public organizations
           </p>
         </div>
@@ -76,8 +76,8 @@ export default function JoinOrganizationModal({
           {joinMessage && (
             <div className={`mb-4 p-4 rounded-lg ${
               joinMessage.includes('sent')
-                ? 'bg-green-900/20 border border-green-800 text-green-300'
-                : 'bg-red-900/20 border border-red-800 text-red-300'
+                ? 'bg-[var(--success-light)] border border-[var(--success)] text-[var(--success)]'
+                : 'bg-[var(--error-light)] border border-[var(--error)] text-[var(--error)]'
             }`}>
               <div className="flex items-center space-x-2">
                 <span>{joinMessage.includes('sent') ? '✅' : '⚠️'}</span>
@@ -89,18 +89,18 @@ export default function JoinOrganizationModal({
           {isLoading ? (
             <div className="space-y-4">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-gray-100 rounded-lg h-32 animate-pulse" />
+                <div key={i} className="bg-[var(--background)] rounded-lg h-32 animate-pulse" />
               ))}
             </div>
           ) : error ? (
-            <div className="bg-red-900/20 border border-red-800 rounded-lg p-4">
+            <div className="bg-[var(--error-light)] border border-[var(--error)] rounded-lg p-4">
               <div className="flex items-center space-x-2">
-                <span className="text-red-400">⚠️</span>
-                <p className="text-red-300">{error}</p>
+                <span className="text-[var(--error)]">⚠️</span>
+                <p className="text-[var(--error)]">{error}</p>
               </div>
               <button
                 onClick={loadOrganizations}
-                className="mt-2 text-sm text-orange-400 hover:text-orange-300 underline"
+                className="mt-2 text-sm text-[var(--accent-primary)] hover:text-[var(--accent-primary-light)] underline"
               >
                 Try again
               </button>
@@ -108,10 +108,10 @@ export default function JoinOrganizationModal({
           ) : organizations.length === 0 ? (
             <div className="text-center py-8">
               <div className="text-4xl mb-4">🏢</div>
-              <h3 className="text-lg font-medium text-white mb-2">
+              <h3 className="text-lg font-medium text-[var(--foreground)] mb-2">
                 No public organizations available
               </h3>
-              <p className="text-gray-400">
+              <p className="text-[var(--foreground-secondary)]">
                 Check back later for new organizations to join.
               </p>
             </div>
@@ -124,7 +124,7 @@ export default function JoinOrganizationModal({
                 return (
                   <div
                     key={org.id}
-                    className="border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors card-header"
+                    className="border border-[var(--accent-border)] rounded-lg p-4 hover:border-[var(--foreground-light)] transition-colors card-header"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -135,20 +135,20 @@ export default function JoinOrganizationModal({
                              org.type === 'startup' ? '🚀' : '🏢'}
                           </div>
                           <div>
-                            <h3 className="font-medium text-white">
+                            <h3 className="font-medium text-[var(--foreground)]">
                               {org.name}
                             </h3>
-                            <p className="text-xs text-gray-400 capitalize">
+                            <p className="text-xs text-[var(--foreground-secondary)] capitalize">
                               {org.type} Organization
                             </p>
                           </div>
                         </div>
 
-                        <p className="text-sm text-gray-300 mb-3 line-clamp-2">
+                        <p className="text-sm text-[var(--foreground-light)] mb-3 line-clamp-2">
                           {org.description}
                         </p>
 
-                        <div className="flex items-center space-x-4 text-xs text-gray-400">
+                        <div className="flex items-center space-x-4 text-xs text-[var(--foreground-secondary)]">
                           <span>👥 {org.memberCount} members</span>
                           <span>📅 {org.eventsCount} events</span>
                           <span>🌐 Public</span>
@@ -159,7 +159,7 @@ export default function JoinOrganizationModal({
                         {isPending ? (
                           <button
                             disabled
-                            className="bg-yellow-900/20 text-yellow-400 border border-yellow-800 px-4 py-2 rounded-lg text-sm font-medium cursor-not-allowed"
+                            className="bg-[var(--warning-light)] text-[var(--warning)] border border-[var(--warning)] px-4 py-2 rounded-lg text-sm font-medium cursor-not-allowed"
                           >
                             ⏳ Pending
                           </button>

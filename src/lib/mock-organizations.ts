@@ -14,7 +14,7 @@ export interface Organization {
 
 export interface UserOrganization {
   organizationId: number;
-  role: 'user' | 'admin' | 'ambassador' | 'staff';
+  role: 'super_admin' | 'admin' | 'ambassador' | 'staff' | 'user';
   status: 'active' | 'pending' | 'rejected';
   joinedAt: string;
 }
@@ -23,7 +23,7 @@ export interface OrganizationMember {
   id: number;
   name: string;
   email: string;
-  role: 'user' | 'admin' | 'ambassador' | 'staff';
+  role: 'super_admin' | 'admin' | 'ambassador' | 'staff' | 'user';
   avatarUrl: string;
   joinedAt: string;
   walletAddress: string;

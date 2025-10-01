@@ -257,7 +257,7 @@ export default function Home() {
               color: 'var(--foreground-light)', 
               margin: 0 
             }}>
-              Event Metrycs - MVP with brownfield implementation
+              Event Metrycs
             </p>
           </div>
         </div>

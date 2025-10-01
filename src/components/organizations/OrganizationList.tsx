@@ -23,12 +23,12 @@ export default function OrganizationList() {
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-white">My Organizations</h2>
-          <div className="text-sm text-gray-400">Loading...</div>
+          <h2 className="text-xl font-semibold text-[var(--foreground)]">My Organizations</h2>
+          <div className="text-sm text-[var(--foreground-secondary)]">Loading...</div>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-800 rounded-lg h-48 animate-pulse" />
+            <div key={i} className="bg-[var(--background-secondary)] rounded-lg h-48 animate-pulse" />
           ))}
         </div>
       </div>
@@ -38,15 +38,15 @@ export default function OrganizationList() {
   if (error) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-white">My Organizations</h2>
-        <div className="bg-red-900/20 border border-red-800 rounded-lg p-4">
+        <h2 className="text-xl font-semibold text-[var(--foreground)]">My Organizations</h2>
+        <div className="bg-[var(--error-light)] border border-[var(--error)] rounded-lg p-4">
           <div className="flex items-center space-x-2">
-            <span className="text-red-400">⚠️</span>
-            <p className="text-red-300">{error}</p>
+            <span className="text-[var(--error)]">⚠️</span>
+            <p className="text-[var(--error)]">{error}</p>
           </div>
           <button
             onClick={() => user?.id && loadOrganizations(Number(user.id))}
-            className="mt-2 text-sm text-red-400 hover:text-red-300 underline"
+            className="mt-2 text-sm text-[var(--error)] hover:text-[var(--error-light)] underline"
           >
             Try again
           </button>
@@ -59,8 +59,8 @@ export default function OrganizationList() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-white">My Organizations</h2>
-          <p className="text-sm text-gray-400 mt-1">
+          <h2 className="text-xl font-semibold text-[var(--foreground)]">My Organizations</h2>
+          <p className="text-sm text-[var(--foreground-secondary)] mt-1">
             Organizations you&apos;re a member of
           </p>
         </div>
@@ -73,12 +73,12 @@ export default function OrganizationList() {
       </div>
 
       {organizations.length === 0 ? (
-        <div className="text-center py-12 bg-gray-800 rounded-lg border border-gray-700">
+        <div className="text-center py-12 bg-[var(--background-secondary)] rounded-lg border border-[var(--accent-border)]">
           <div className="text-4xl mb-4">🏢</div>
-          <h3 className="text-lg font-medium text-white mb-2">
+          <h3 className="text-lg font-medium text-[var(--foreground)] mb-2">
             No organizations yet
           </h3>
-          <p className="text-gray-400 mb-4">
+          <p className="text-[var(--foreground-secondary)] mb-4">
             You&apos;re not a member of any organizations. Join one to get started!
           </p>
           <button

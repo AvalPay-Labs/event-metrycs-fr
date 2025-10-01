@@ -1,21 +1,22 @@
 'use client';
 
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/auth-store';
 import OrganizationDetail from '@/components/organizations/OrganizationDetail';
 import MainLayout from '@/components/layout/MainLayout';
 
 interface OrganizationDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default function OrganizationDetailPage({ params }: OrganizationDetailPageProps) {
   const router = useRouter();
   const { isAuthenticated, user, initializeAuth } = useAuthStore();
-  const organizationId = parseInt(params.id);
+  const { id } = use(params);
+  const organizationId = parseInt(id);
 
   useEffect(() => {
     initializeAuth();

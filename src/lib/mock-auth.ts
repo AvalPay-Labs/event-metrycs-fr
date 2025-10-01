@@ -107,7 +107,7 @@ export class MockAuthService {
           id: 'user_org_ambassador001',
           userId: 'user_ambassador001',
           organizationId: DEFAULT_ORG.id,
-          role: 'embajador',
+          role: 'ambassador',
           status: 'active',
           joinedAt: '2025-09-27T10:00:00.000Z'
         }
@@ -295,7 +295,7 @@ export class MockAuthService {
     // Simulate welcome email
     await simulateWelcomeEmail(newUser);
 
-    console.log('🔗 MOCK GOOGLE OAUTH: Usuario registrado exitosamente');
+    console.log('🔗 MOCK GOOGLE OAUTH: User registered successfully');
 
     return { success: true, user: newUser };
   }
@@ -340,7 +340,7 @@ export class MockAuthService {
     // Simulate welcome email
     await simulateWelcomeEmail(newUser);
 
-    console.log('🍎 MOCK APPLE ID: Usuario registrado exitosamente');
+    console.log('🍎 MOCK APPLE ID: User registered successfully');
 
     return { success: true, user: newUser };
   }
@@ -360,7 +360,7 @@ export class MockAuthService {
     userOrganizations.push(newAssignment);
     this.saveUserOrganizations(userOrganizations);
 
-    console.log('🏢 MOCK ORG ASSIGNMENT: Usuario asignado a Team 1 con rol Usuario');
+    console.log('🏢 MOCK ORG ASSIGNMENT: User assigned to Team 1 with User role');
   }
 
   // Get current user
