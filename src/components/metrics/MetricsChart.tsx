@@ -147,8 +147,6 @@ export default function MetricsChart({
                 cx="50%"
                 cy="50%"
                 outerRadius={80}
-                label={({ name, percent }: { name: string; percent: number }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                labelStyle={{ fontSize: '0.75rem', fill: 'var(--foreground)' }}
               >
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
