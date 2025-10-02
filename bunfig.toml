@@ -1,0 +1,5 @@
+# Bun package manager configuration
+
+[install]
+# Use exact versions - no caret (^) or tilde (~) symbols
+exact = true
