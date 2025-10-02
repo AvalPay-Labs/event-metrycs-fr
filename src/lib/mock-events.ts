@@ -265,3 +265,96 @@ export function initializeSampleEvents(organizationId: string, creatorId: string
 
   return sampleEvents;
 }
+
+/**
+ * Generate realistic event metrics based on event type and time from now
+ */
+export function generateEventMetrics(
+  eventType: EventType,
+  daysFromNow: number,
+  capacity: number
+): { interested: number; registered: number; views: number; shares: number } {
+  const baseMetrics = {
+    workshop: { interestRate: 0.4, conversionRate: 0.7 },
+    meetup: { interestRate: 0.6, conversionRate: 0.8 },
+    hackathon: { interestRate: 0.8, conversionRate: 0.6 },
+    conference: { interestRate: 0.9, conversionRate: 0.5 },
+    webinar: { interestRate: 0.5, conversionRate: 0.9 },
+    networking: { interestRate: 0.7, conversionRate: 0.75 }
+  };
+
+  const metrics = baseMetrics[eventType] || baseMetrics.workshop;
+
+  // Adjust based on days from now (upcoming events have more interest)
+  const timeMultiplier = daysFromNow > 0 && daysFromNow < 30 ? 1.2 : 1.0;
+
+  const interested = Math.floor(capacity * metrics.interestRate * timeMultiplier * (1 + Math.random() * 0.5));
+  const registered = Math.floor(interested * metrics.conversionRate);
+
+  return {
+    interested,
+    registered: Math.min(registered, capacity),
+    views: interested * 2 + Math.floor(Math.random() * 100),
+    shares: Math.floor(registered * 0.1)
+  };
+}
+
+/**
+ * Calculate dashboard metrics from events list
+ */
+export function calculateDashboardMetrics(events: Event[]) {
+  const now = new Date();
+
+  const activeEvents = events.filter(e => {
+    const startDate = new Date(e.startDate);
+    const endDate = new Date(e.endDate);
+    return startDate <= now && endDate >= now;
+  });
+
+  const upcomingEvents = events
+    .filter(e => new Date(e.startDate) > now)
+    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+
+  const totalAttendees = events.reduce((sum, e) => sum + e.registeredCount, 0);
+
+  return {
+    totalEvents: events.length,
+    activeEvents: activeEvents.length,
+    totalAttendees,
+    nextEvent: upcomingEvents[0] || null
+  };
+}
+
+/**
+ * Generate chart data for events by month (last 6 months)
+ */
+export function generateChartData(events: Event[]) {
+  const now = new Date();
+  const months: { month: string; monthDate: Date; events: number }[] = [];
+
+  // Generate last 6 months
+  for (let i = 5; i >= 0; i--) {
+    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    months.push({
+      month: date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+      monthDate: date,
+      events: 0
+    });
+  }
+
+  // Count events per month
+  events.forEach(event => {
+    const eventDate = new Date(event.createdAt);
+    const monthIndex = months.findIndex(m => {
+      const nextMonth = new Date(m.monthDate);
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      return eventDate >= m.monthDate && eventDate < nextMonth;
+    });
+
+    if (monthIndex >= 0) {
+      months[monthIndex].events++;
+    }
+  });
+
+  return months.map(({ month, events }) => ({ month, events }));
+}
